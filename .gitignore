@@ -19,5 +19,5 @@ test/*
 test/*.cmd
 test/unit/build
 
-
-**/node_modules
+/node_modules
+/three.js-dev
