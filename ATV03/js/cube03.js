@@ -8,7 +8,6 @@ var speedZ = 0.2;
 
 var createCube = function()  {
     var geometry = new THREE.BoxGeometry(2, 10, 2); 
-
      
     black = new THREE.Color(0, 0, 0);
     blue = new THREE.Color(0, 0, 1);
@@ -33,37 +32,58 @@ var createCube = function()  {
     geometry.faces[8].color = colors[6];
     geometry.faces[9].color = colors[2];
     geometry.faces[10].color = colors[6];
-    geometry.faces[11].color = colors[2];*/
+    geometry.faces[11].color = colors[2];
 
-for (let i = 0; i < 3; i++) {
-    geometry.faces[4*i].color = colorzin40graus[i];
-    geometry.faces[4*i+1].color = colorzin40graus[i];
-    geometry.faces[4*i+2].color = colorzin40graus[i];
-    geometry.faces[4*i+3].color = colorzin40graus[i];
+    for (let i = 0; i < 3; i++) {
+        geometry.faces[4*i].color = colors[i];
+        geometry.faces[4*i+1].color = colors[i];
+        geometry.faces[4*i+2].color = colors[i];
+        geometry.faces[4*i+3].color = colors[i];
+    }
 
-}
-    var mat = new THREE.MeshBasicMaterial({color:'white', vertexColors:true})
+
+    */
+
+    var mat = new THREE.MeshBasicMaterial({color:'green'})
     cube = new THREE.Mesh(geometry, mat);
     scene.add(cube);
+
+    var geometry4 = new THREE.BoxGeometry(2, 10, 2); 
+    var mat4 = new THREE.MeshBasicMaterial({color:green})
+    var cube_plus = new THREE.Mesh(geometry4, mat4);
+    cube_plus.position.y+=10;
+    cube.add(cube_plus);
+
     //0x090909 0xff0000 0x434343
     var geometry2 = new THREE.SphereGeometry(2, 32, 32);
     var mat2 = new THREE.MeshBasicMaterial({color:0x434343});
     sphere = new THREE.Mesh(geometry2, mat2);
     sphere.position.y-=5;
     cube.add(sphere);
+    
+    var geometry3 = new THREE.SphereGeometry(2, 32, 32);
+    var mat3 = new THREE.MeshBasicMaterial({color:0x434343});
+    sphere2 = new THREE.Mesh(geometry3, mat3);
+    sphere2.position.y+=5;
+    cube.add(sphere2);
+    
+    cube_plus.add(cube);
 
-    //var geometry3 = new THREE.SphereGeometry(2, 32, 32);
-    //var mat3 = new THREE.MeshBasicMaterial({color:0x434343});
-    //sphere2 = new THREE.Mesh(geometry3, mat3);
-    //sphere2.position.y+=5;
-    //scene.add(sphere2);
+    var geometry5 = new THREE.SphereGeometry(2, 32, 32);
+    var mat5 = new THREE.MeshBasicMaterial({color:0x434343});
+    sphere3 = new THREE.Mesh(geometry5, mat5);
+    sphere3.position.y+=5;
+    cube.add(sphere3);
+    cube_plus.add(sphere3);
 
     pivot = new THREE.Group();
     pivot.position.set(0,0,0);
     pivot.add(cube);
 
+
+
     scene.add(pivot);
-    cube.position.y+=pivot.position.x+5;
+    cube.position.y+=pivot.position.x-5;
 }
 
 var render = function () {
@@ -116,9 +136,10 @@ var inputClick = function(e){
     
     if(e.keyCode == 32){ //space agora rotaciona pelo pivo 
     //    cube.rotation.x+=0.01;
-        if(pivot.rotation.z > 1.7 || pivot.rotation.z < -1) rotationVelocity*=-1;
+        if(pivot.rotation.z > 1.7 || pivot.rotation.z <= -1){
+            rotationVelocity*=-1;
+        }
         pivot.rotation.z+=rotationVelocity;
-
     //    cube.rotation.z+=0.04; 
     }
 
